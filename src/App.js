@@ -1,7 +1,18 @@
 import React from "react";
 
 function App() {
-  return <h1>Hello world</h1>;
+  const greeting = "Hi!!Kagami";
+  return (
+    <>
+      <label htmlFor="bar">bar</label>
+      <input
+        type="text"
+        onChange={() => {
+          console.log("I am clicked");
+        }}
+      />
+    </>
+  );
 }
 
 // function App() {
