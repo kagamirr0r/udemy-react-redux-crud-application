@@ -1,76 +1,30 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { Component } from "react";
 
-// class App extend Component{
-//   render(){
-//     return(
-//       <>
-//       <label htmlFor="bar">bar</label>
-//       <input
-//         type="text"
-//         onChange={() => {
-//           console.log("I am clicked");
-//         }}
-//       />
-//     </>
-//     )
-//   }
-// }
+const App = () => <Counter></Counter>;
 
-// function App() {
-//   return (
-//     <>
-//       <label htmlFor="bar">bar</label>
-//       <input
-//         type="text"
-//         onChange={() => {
-//           console.log("I am clicked");
-//         }}
-//       />
-//     </>
-//   );
-// }
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
 
-const App = () => {
-  const profiles = [
-    {
-      name: "Taro",
-      age: 10,
-    },
-    {
-      name: "Hanako",
-      age: 5,
-    },
-    {
-      name: "Noname",
-    },
-  ];
-  return (
-    <>
-      {/* <User name={"Taro"} age={10} />
-      <User name={"Hanako"} age={5} /> */}
-      {profiles.map((profile, index) => {
-        return <User name={profile.name} age={profile.age} key={index} />;
-      })}
-    </>
-  );
-};
+  handlePlusButton = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
 
-const User = (props) => {
-  return (
-    <div>
-      I am {props.name}, and {props.age} years old.
-    </div>
-  );
-};
+  handleMinusButton = () => {
+    this.setState({ count: this.state.count - 1 });
+  };
 
-User.propTypes = {
-  name: PropTypes.string,
-  age: PropTypes.number.isRequired, //ageがないとエラーになる
-};
-
-// function App() {
-//   return React.createElement("div", null, "Hello World!!");
-// }
+  render() {
+    return (
+      <>
+        <div>state: {this.state.count}</div>
+        <button onClick={this.handlePlusButton}>+1</button>
+        <button onClick={this.handleMinusButton}>-1</button>
+      </>
+    );
+  }
+}
 
 export default App;
