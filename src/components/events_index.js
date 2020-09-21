@@ -1,46 +1,58 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { readEvents } from "../actions";
-import _ from "lodash";
-import { Link } from "react-router-dom";
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import _ from "lodash"
+import { Link } from "react-router-dom"
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableCell,
+  TableRow,
+  TableRowColumn,
+} from "material-ui/Table"
+// import FloatingActionButton from "material-ui/FroatingActionButton"
+// import ContentAdd from "material-ui/svg-icons/content/add"
 
+import { readEvents } from "../actions"
 class EventsIndex extends Component {
-  componentDidMount() {
-    this.props.readEvents();
+  componenTableRowColumnidMount() {
+    this.props.readEvents()
   }
 
   renderEvents() {
     return _.map(this.props.events, (event) => (
-      <tr key={event.id}>
-        <td>{event.id}</td>
-        <td>
+      <TableRow key={event.id}>
+        <TableRowColumn>{event.id}</TableRowColumn>
+        <TableRowColumn>
           <Link to={`events/${event.id}`}>{event.title}</Link>
-        </td>
-        <td>{event.body}</td>
-      </tr>
-    ));
+        </TableRowColumn>
+        <TableRowColumn>{event.body}</TableRowColumn>
+      </TableRow>
+    ))
   }
   render() {
     return (
       <>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>TITLE</th>
-              <th>BODY</th>
-            </tr>
-          </thead>
-          <tbody>{this.renderEvents()}</tbody>
-        </table>
-
+        <Table>
+          <TableHeader displaySelectAll={false}>
+            <TableRow>
+              <TableHeaderColumn>ID</TableHeaderColumn>
+              <TableHeaderColumn>TITLE</TableHeaderColumn>
+              <TableHeaderColumn>BODY</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>
+            {this.renderEvents()}
+          </TableBody>
+        </Table>
         <Link to="/events/new">New Events</Link>
       </>
-    );
+    )
   }
 }
 
-const mapStateToProps = (state) => ({ events: state.events });
+const mapStateToProps = (state) => ({ events: state.events })
 
-const mapDispatchToProps = { readEvents };
-export default connect(mapStateToProps, mapDispatchToProps)(EventsIndex);
+const mapDispatchToProps = { readEvents }
+export default connect(mapStateToProps, mapDispatchToProps)(EventsIndex)
